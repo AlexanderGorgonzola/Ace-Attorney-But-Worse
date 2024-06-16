@@ -24,17 +24,15 @@ class Buttons:
         self.msg_rect.midbottom = self.button_rect.midbottom
 
     def prep_objection(self):
-        self.font = pygame.font.SysFont(None, 45)
-        self.objection_image = self.font.render("Object", True, self.text_color, (255, 255, 0))
+        self.objection_image = pygame.image.load("images/object_button.png")
         self.objection_rect = self.objection_image.get_rect()
         self.objection_rect.bottomleft = self.screen_rect.bottomleft
 
     def prep_info(self):
-        self.font = pygame.font.SysFont(None, 45)
-        self.info_image = self.font.render("Info", True, self.text_color, (255, 255, 0))
+        self.info_image = pygame.image.load("images/info_button.png")
         self.info_rect = self.info_image.get_rect()
         self.info_rect.left = self.screen_rect.left
-        self.info_rect.bottom = self.screen_rect.bottom - 40
+        self.info_rect.bottom = self.screen_rect.bottom - 70
 
     def show_buttons(self):
         self.screen.blit(self.info_image, self.info_rect)

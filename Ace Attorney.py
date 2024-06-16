@@ -53,8 +53,6 @@ class AceAttorney:
         while True:
             self._check_events()
             self._update_screen()
-            print("hi")
-            print("Nah, Id Win")
 
 if __name__ == "__main__":
     at = AceAttorney()
