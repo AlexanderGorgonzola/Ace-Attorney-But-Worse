@@ -33,10 +33,16 @@ class Buttons:
         self.info_rect = self.info_image.get_rect()
         self.info_rect.left = self.screen_rect.left
         self.info_rect.bottom = self.screen_rect.bottom - 70
+    def prep_give_up(self):
+        self.give_image = pygame.image.load("images/give_up_button.png")
+        self.give_image_rect = self.give_image.get_rect()
+        self.give_image_rect.left = self.screen_rect.left + 160
+        self.give_image_rect.bottom = self.screen_rect.bottom - 35
 
     def show_buttons(self):
         self.screen.blit(self.info_image, self.info_rect)
         self.screen.blit(self.objection_image, self.objection_rect)
+        self.screen.blit(self.give_image, self.give_image_rect)
 
     def show_intro(self):
         self.screen.fill((255, 255, 0), self.button_rect)

@@ -30,6 +30,7 @@ class AceAttorney:
         if self.stats.game_active:
             self.buttons.prep_objection()
             self.buttons.prep_info()
+            self.buttons.prep_give_up()
             self.buttons.show_buttons()
         else:
             self.buttons.prep_startButton()
