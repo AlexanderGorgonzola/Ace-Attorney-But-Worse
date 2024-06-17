@@ -27,6 +27,8 @@ class AceAttorney:
             self.character.change_image()
             self.character.blitme()
             self.tag = CharacterTag(self, self.character.turn)
+            self.tag._prep_msg(self.character.turn)
+            self.tag._prep_textbox(self.character.turn)
             self.tag.draw_text()
             self.buttons.prep_objection()
             self.buttons.prep_info()

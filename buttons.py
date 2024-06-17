@@ -41,7 +41,7 @@ class Buttons:
     def prep_health(self, hp):
         self.health_rect = pygame.Rect(0, 0, (hp * 2), 50)
         self.health_rect.top = self.screen_rect.top + 40
-        self.health_rect.left = self.screen_rect.left + 10
+        self.health_rect.left = self.screen_rect.left
 
     def show_buttons(self):
         self.screen.blit(self.info_image, self.info_rect)
