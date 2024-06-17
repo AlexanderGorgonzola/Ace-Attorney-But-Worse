@@ -4,10 +4,10 @@ class Character:
     def __init__(self, at_game):
         self.screen = at_game.screen
         self.screen_rect = at_game.screen.get_rect()
-        self.turn = "witness"
-        self.defense = "normal"
+        self.turn = "defense"
+        self.defense = "object"
         self.prosecutor = "normal"
-        self.witness = "normal"
+        self.witness = "angry"
         self.detective = "confused"
         self.victim = "normal"
     def change_image(self):
@@ -18,6 +18,8 @@ class Character:
                 self.image = pygame.image.load("images/player_think.png")
             elif self.defense == "stressed":
                 self.image = pygame.image.load("images/player_stressed.png")
+            elif self.defense == "object":
+                self.image = pygame.image.load("images/player_objection.png")
         elif self.turn == "prosecutor":
             if self.prosecutor == "normal":
                 self.image = pygame.image.load("images/enemy_stand.png")
@@ -25,6 +27,8 @@ class Character:
                 self.image = pygame.image.load("images/enemy_think.png")
             elif self.prosecutor == "stressed":
                 self.image = pygame.image.load("images/enemy_stress.png")
+            elif self.prosecutor == "object":
+                self.image = pygame.image.load("images/enemy_objection.png")
         elif self.turn == "judge":
             self.image = pygame.image.load("images/judge.png")
         elif self.turn == "witness":
@@ -50,10 +54,15 @@ class Character:
                 self.image = pygame.image.load("images/victim_angry.png")
             elif self.victim == "sad":
                 self.image = pygame.image.load("images/victim_sad.png")
-
         self.rect = self.image.get_rect()
         if self.turn == "judge":
             self.rect.midtop = self.screen_rect.midtop
+        elif self.turn == "witness":
+            self.rect.right = self.screen_rect.right - 90
+            self.rect.bottom = self.screen_rect.bottom
+        elif self.turn == "defense":
+            self.rect.right = self.screen_rect.right - 50
+            self.rect.bottom = self.screen_rect.bottom
         else:
             self.rect.midbottom = self.screen_rect.midbottom
 
