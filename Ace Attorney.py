@@ -17,20 +17,21 @@ class AceAttorney:
         pygame.display.set_caption("Ace Attorney")
 
     def _update_screen(self):
-        self.settings.current_bg = self.character.turn
-        self.settings.update_bg()
-        if (self.settings.current_bg == "judge") or (self.settings.current_bg == "prosecutor") or (self.settings.current_bg == "defense"): #decide locations
-            self.screen.blit(self.settings.bg, (-120, 0))
-        elif (self.settings.current_bg == "witness") or (self.settings.current_bg == "detective") or (self.settings.current_bg == "victim"):
-            self.screen.blit(self.settings.bg, (0, 0))
-        self.character.change_image()
-        self.character.blitme()
-        self.tag = CharacterTag(self, self.character.turn)
-        self.tag.draw_text()
         if self.stats.game_active:
+            self.settings.current_bg = self.character.turn
+            self.settings.update_bg()
+            if (self.settings.current_bg == "judge") or (self.settings.current_bg == "prosecutor") or (self.settings.current_bg == "defense"): #decide locations
+                self.screen.blit(self.settings.bg, (-120, 0))
+            elif (self.settings.current_bg == "witness") or (self.settings.current_bg == "detective") or (self.settings.current_bg == "victim"):
+                self.screen.blit(self.settings.bg, (0, 0))
+            self.character.change_image()
+            self.character.blitme()
+            self.tag = CharacterTag(self, self.character.turn)
+            self.tag.draw_text()
             self.buttons.prep_objection()
             self.buttons.prep_info()
             self.buttons.prep_give_up()
+            self.buttons.prep_health(self.settings.health)
             self.buttons.show_buttons()
         else:
             self.buttons.prep_startButton()

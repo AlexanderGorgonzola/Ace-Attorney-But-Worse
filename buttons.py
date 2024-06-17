@@ -38,11 +38,16 @@ class Buttons:
         self.give_image_rect = self.give_image.get_rect()
         self.give_image_rect.left = self.screen_rect.left + 160
         self.give_image_rect.bottom = self.screen_rect.bottom - 35
+    def prep_health(self, hp):
+        self.health_rect = pygame.Rect(0, 0, (hp * 2), 50)
+        self.health_rect.top = self.screen_rect.top + 40
+        self.health_rect.left = self.screen_rect.left + 10
 
     def show_buttons(self):
         self.screen.blit(self.info_image, self.info_rect)
         self.screen.blit(self.objection_image, self.objection_rect)
         self.screen.blit(self.give_image, self.give_image_rect)
+        self.screen.fill((0, 255, 0), self.health_rect)
 
     def show_intro(self):
         self.screen.fill((255, 255, 0), self.button_rect)

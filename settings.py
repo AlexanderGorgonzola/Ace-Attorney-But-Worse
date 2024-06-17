@@ -5,6 +5,7 @@ class Settings:
         self.screen_height = 800
         self.current_bg = "victim"
         self.bg = pygame.image.load("images/judge_bg.png")
+        self.health = 100
     def update_bg(self):
         if self.current_bg == "judge":
             self.bg = pygame.image.load("images/judge_bg.png")
