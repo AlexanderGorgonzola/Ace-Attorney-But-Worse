@@ -18,7 +18,10 @@ class AceAttorney:
 
     def _update_screen(self):
         if self.stats.game_active:
-            self.settings.current_bg = self.character.turn
+            if self.character.turn == "witness_2":
+                self.settings.current_bg = "witness"
+            else:
+                self.settings.current_bg = self.character.turn
             self.settings.update_bg()
             if (self.settings.current_bg == "judge") or (self.settings.current_bg == "prosecutor") or (self.settings.current_bg == "defense"): #decide locations
                 self.screen.blit(self.settings.bg, (-120, 0))
