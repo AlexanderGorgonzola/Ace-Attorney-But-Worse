@@ -25,7 +25,7 @@ class CharacterTag:
             self.textbox_image = pygame.image.load("images/victim_Textbox.png")
         elif turn == "witness":
             self.textbox_image = pygame.image.load("images/witness_Textbox.png")
-        elif turn == "witness_2":
+        elif turn == "witness 2":
             self.textbox_image = pygame.image.load("images/witness2_Textbox.png")
         elif turn == "judge":
             self.textbox_image = pygame.image.load("images/judge_Textbox.png")

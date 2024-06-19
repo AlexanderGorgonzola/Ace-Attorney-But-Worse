@@ -4,7 +4,7 @@ class Character:
     def __init__(self, at_game):
         self.screen = at_game.screen
         self.screen_rect = at_game.screen.get_rect()
-        self.turn = "witness_2"
+        self.turn = "witness 2"
         self.defense = "object"
         self.prosecutor = "normal"
         self.witness = "angry"
@@ -55,7 +55,7 @@ class Character:
                 self.image = pygame.image.load("images/victim_angry.png")
             elif self.victim == "sad":
                 self.image = pygame.image.load("images/victim_sad.png")
-        elif self.turn == "witness_2":
+        elif self.turn == "witness 2":
             if self.witness_2 == "normal":
                 self.image = pygame.image.load("images/witness2_talk.png")
             elif self.witness_2 == "nervous":
@@ -67,7 +67,7 @@ class Character:
         self.rect = self.image.get_rect()
         if self.turn == "judge":
             self.rect.midtop = self.screen_rect.midtop
-        elif self.turn == "witness" or self.turn == "witness_2":
+        elif self.turn == "witness" or self.turn == "witness 2":
             self.rect.right = self.screen_rect.right - 90
             self.rect.bottom = self.screen_rect.bottom
         elif self.turn == "defense":

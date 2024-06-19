@@ -1,5 +1,6 @@
 import pygame
 import sys
+from pygame import mixer
 from settings import Settings
 from characters import Character
 from CharacterTag import CharacterTag
@@ -10,6 +11,7 @@ from effects_and_more import Effects
 class AceAttorney:
     def __init__(self):
         pygame.init()
+        mixer.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.character = Character(self)
@@ -21,10 +23,11 @@ class AceAttorney:
         self.effects = Effects(self)
         pygame.display.set_caption("Ace Attorney")
         self.info_up = False
+        self.page_flip = pygame.mixer.Sound("sounds/page_flip_sound.mp3")
 
     def _update_screen(self):
         if self.stats.game_active:
-            if self.character.turn == "witness_2": #yippie, A MESS!
+            if self.character.turn == "witness 2": #yippie, A MESS!
                 self.settings.current_bg = "witness"
             else:
                 self.settings.current_bg = self.character.turn
@@ -44,6 +47,8 @@ class AceAttorney:
             self.buttons.prep_give_up() #nah what the sigma is this code
             self.buttons.prep_health(self.settings.health)
             self.buttons.show_buttons()
+            if self.info_up == True:
+                self.effects.show_autopsy()
         else:
             self.buttons.prep_startButton()
             self.buttons.prep_title()
@@ -58,6 +63,7 @@ class AceAttorney:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
                 self._check_normal_buttons(mouse_pos)
+                pygame.display.flip()
     def _check_play_button(self, mouse_pos):
         intro_button_clicked = self.buttons.button_rect.collidepoint(mouse_pos)
         if intro_button_clicked and not self.stats.game_active:
@@ -69,17 +75,16 @@ class AceAttorney:
         info_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
         if info_button_clicked and not self.info_up:
             self.effects.prep_autopsy()
-            self.effects.show_autopsy()
-            print("Whats up")
             self.info_up = True
+            self.page_flip.play()
         elif info_button_clicked and self.info_up:
             self.effects.hide_autopsy()
-            print("whats down")
             self.info_up = False
+            self.page_flip.play()
     def run_game(self):
         while True:
-            self._update_screen()
             self._check_events()
+            self._update_screen()
 
 if __name__ == "__main__":
     at = AceAttorney()
