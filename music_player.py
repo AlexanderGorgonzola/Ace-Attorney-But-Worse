@@ -11,7 +11,7 @@ class Music:
         self.update_audio(hp)
     def update_audio(self, hp):
         self.music_id = random.randint(1, 3)
-        pygame.mixer.music.set_volume(0.7)
+        pygame.mixer.music.set_volume(0.5)
         if self.music_id == 1:
             pygame.mixer.music.load("sounds/main.mp3")
             self.track = (pygame.mixer.Sound("sounds/main.mp3")).get_length()
