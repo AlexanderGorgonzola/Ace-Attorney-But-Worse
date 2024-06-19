@@ -5,6 +5,7 @@ from characters import Character
 from CharacterTag import CharacterTag
 from buttons import Buttons
 from game_stats import GameStats
+from music_player import Music
 class AceAttorney:
     def __init__(self):
         pygame.init()
@@ -14,11 +15,13 @@ class AceAttorney:
         self.tag = CharacterTag(self, "Defense")
         self.buttons = Buttons(self)
         self.stats = GameStats(self)
+        self.music = Music(self, self.settings.health)
+        self.total_time = pygame.time.get_ticks()
         pygame.display.set_caption("Ace Attorney")
 
     def _update_screen(self):
         if self.stats.game_active:
-            if self.character.turn == "witness_2":
+            if self.character.turn == "witness_2": #yippie, A MESS!
                 self.settings.current_bg = "witness"
             else:
                 self.settings.current_bg = self.character.turn
@@ -35,7 +38,7 @@ class AceAttorney:
             self.tag.draw_text()
             self.buttons.prep_objection()
             self.buttons.prep_info()
-            self.buttons.prep_give_up()
+            self.buttons.prep_give_up() #nah what the sigma is this code
             self.buttons.prep_health(self.settings.health)
             self.buttons.show_buttons()
         else:
@@ -56,6 +59,7 @@ class AceAttorney:
         if intro_button_clicked and not self.stats.game_active:
             self.stats.reset_stats()
             self.stats.game_active = True
+            self.music.play_audio(self.settings.health)
     def run_game(self):
         while True:
             self._check_events()
