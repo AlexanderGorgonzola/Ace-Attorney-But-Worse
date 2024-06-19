@@ -19,7 +19,7 @@ class Music:
             pygame.mixer.music.load("sounds/losing.mp3")
             self.track = (pygame.mixer.Sound("sounds/losing.mp3")).get_length()
         else:
-            pygame.mixer.music.load("sounds/onto_somethings.mp3")
+            pygame.mixer.music.load("sounds/onto_something.mp3")
             self.track = (pygame.mixer.Sound("sounds/onto_something.mp3")).get_length()
 
     def play_audio(self, hp):

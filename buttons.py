@@ -9,6 +9,9 @@ class Buttons:
         self.font = pygame.font.SysFont(None, 45)
         self.prep_title()
         self.prep_startButton()
+        self.prep_info()
+        self.prep_give_up()
+        self.prep_objection()
     def prep_title(self):
         self.title = pygame.image.load("images/title.png")
         self.title_rect = self.title.get_rect()

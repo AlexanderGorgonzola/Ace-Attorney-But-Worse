@@ -6,6 +6,7 @@ from CharacterTag import CharacterTag
 from buttons import Buttons
 from game_stats import GameStats
 from music_player import Music
+from effects_and_more import Effects
 class AceAttorney:
     def __init__(self):
         pygame.init()
@@ -17,7 +18,9 @@ class AceAttorney:
         self.stats = GameStats(self)
         self.music = Music(self, self.settings.health)
         self.total_time = pygame.time.get_ticks()
+        self.effects = Effects(self)
         pygame.display.set_caption("Ace Attorney")
+        self.info_up = False
 
     def _update_screen(self):
         if self.stats.game_active:
@@ -54,16 +57,29 @@ class AceAttorney:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_normal_buttons(mouse_pos)
     def _check_play_button(self, mouse_pos):
         intro_button_clicked = self.buttons.button_rect.collidepoint(mouse_pos)
         if intro_button_clicked and not self.stats.game_active:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.music.play_audio(self.settings.health)
+
+    def _check_normal_buttons(self, mouse_pos):
+        info_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
+        if info_button_clicked and not self.info_up:
+            self.effects.prep_autopsy()
+            self.effects.show_autopsy()
+            print("Whats up")
+            self.info_up = True
+        elif info_button_clicked and self.info_up:
+            self.effects.hide_autopsy()
+            print("whats down")
+            self.info_up = False
     def run_game(self):
         while True:
-            self._check_events()
             self._update_screen()
+            self._check_events()
 
 if __name__ == "__main__":
     at = AceAttorney()
