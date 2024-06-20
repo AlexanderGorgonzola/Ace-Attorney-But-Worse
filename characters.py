@@ -4,7 +4,7 @@ class Character:
     def __init__(self, at_game):
         self.screen = at_game.screen
         self.screen_rect = at_game.screen.get_rect()
-        self.turn = "witness 2"
+        self.turn = "judge"
         self.defense = "object"
         self.prosecutor = "normal"
         self.witness = "angry"

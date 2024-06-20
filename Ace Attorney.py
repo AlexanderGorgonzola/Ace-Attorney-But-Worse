@@ -8,6 +8,7 @@ from buttons import Buttons
 from game_stats import GameStats
 from music_player import Music
 from effects_and_more import Effects
+from character_text import CharacterText
 class AceAttorney:
     def __init__(self):
         pygame.init()
@@ -21,6 +22,7 @@ class AceAttorney:
         self.music = Music(self, self.settings.health)
         self.total_time = pygame.time.get_ticks()
         self.effects = Effects(self)
+        self.character_text = CharacterText(self)
         pygame.display.set_caption("Ace Attorney")
         self.info_up = False
         self.page_flip = pygame.mixer.Sound("sounds/page_flip_sound.mp3")
@@ -47,6 +49,8 @@ class AceAttorney:
             self.buttons.prep_give_up() #nah what the sigma is this code
             self.buttons.prep_health(self.settings.health)
             self.buttons.show_buttons()
+            self.character_text.prep_speech(self.character.turn, self.settings.turn_des)
+            self.character_text.draw_speech()
             if self.info_up == True:
                 self.effects.show_autopsy()
         else:
