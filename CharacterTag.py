@@ -30,8 +30,12 @@ class CharacterTag:
         elif turn == "judge":
             self.textbox_image = pygame.image.load("images/judge_Textbox.png")
         self.textbox_image_rect = self.textbox_image.get_rect()
-        self.textbox_image_rect.right = self.screen_rect.right
-        self.textbox_image_rect.bottom = self.screen_rect.bottom
+        if turn == "prosecutor":
+            self.textbox_image_rect.right = self.screen_rect.right
+            self.textbox_image_rect.bottom = self.screen_rect.bottom + 50
+        else:
+            self.textbox_image_rect.right = self.screen_rect.right
+            self.textbox_image_rect.bottom = self.screen_rect.bottom
     def draw_text(self):
         self.screen.fill(self.box_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)

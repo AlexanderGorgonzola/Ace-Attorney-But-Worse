@@ -29,7 +29,6 @@ class AceAttorney:
 
     def _update_screen(self):
         if self.stats.game_active:
-            self.update_turns()
             if self.character.turn == "witness 2": #yippie, A MESS!
                 self.settings.current_bg = "witness"
             else:
@@ -70,16 +69,16 @@ class AceAttorney:
                 self._check_normal_buttons(mouse_pos)
                 pygame.display.flip()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE: #basically gameplay?
                     if self.settings.turn_des == "Start":
                         self.settings.turn_des = "Start_2"
-    def update_turns(self):
-        if self.settings.turn_des == "Start":
-            self.character.turn == "judge"
-        elif self.settings.turn_des == "Start 2":
-            self.character.turn == "defense"
-        elif self.settings.turn_des == "Start 3":
-            self.character.turn == "prosecutor"
+                        self.character.turn = "defense"
+                        self.character.defense = "normal"
+                    elif self.settings.turn_des == "Start_2":
+                        self.settings.turn_des = "Start_3"
+                        self.character.turn = "prosecutor"
+                        self.character.prosecutor = "normal"
+
     def _check_play_button(self, mouse_pos):
         intro_button_clicked = self.buttons.button_rect.collidepoint(mouse_pos)
         if intro_button_clicked and not self.stats.game_active:
