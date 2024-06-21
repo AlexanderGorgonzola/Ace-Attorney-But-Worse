@@ -70,14 +70,37 @@ class AceAttorney:
                 pygame.display.flip()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE: #basically gameplay?
-                    if self.settings.turn_des == "Start":
-                        self.settings.turn_des = "Start_2"
-                        self.character.turn = "defense"
-                        self.character.defense = "normal"
-                    elif self.settings.turn_des == "Start_2":
-                        self.settings.turn_des = "Start_3"
-                        self.character.turn = "prosecutor"
-                        self.character.prosecutor = "normal"
+                    self.check_space()
+    def check_space(self):
+        if self.settings.turn_des == "Start":
+            self.character.turn = "defense"
+            self.character.defense = "normal"
+            self.settings.turn_des = "Start_2"
+        elif self.settings.turn_des == "Start_2":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "normal"
+            self.settings.turn_des = "Start_3"
+        elif self.settings.turn_des == "Start_3":
+            self.character.turn = "judge"
+            self.settings.turn_des = "Start_4"
+        elif self.settings.turn_des == "Start_4":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "happy"
+            self.settings.turn_des = "Explain"
+        elif self.settings.turn_des == "Explain":
+            self.character.turn = "prosecutor"
+            self.settings.turn_des = "Explain_2"
+        elif self.settings.turn_des == "Explain_2":
+            self.character.turn = "victim"
+            self.character.victim = "shocked"
+            self.settings.turn_des = "Explain_interference"
+        elif self.settings.turn_des == "Explain_interference":
+            self.character.turn = "judge"
+            self.settings.turn_des = "Explain_interference_2"
+        elif self.settings.turn_des == "Explain_interference_2":
+            self.character.turn = "defense"
+            self.character.defense = "stressed"
+            self.settings.turn_des = "Explain_interference_3"
 
     def _check_play_button(self, mouse_pos):
         intro_button_clicked = self.buttons.button_rect.collidepoint(mouse_pos)

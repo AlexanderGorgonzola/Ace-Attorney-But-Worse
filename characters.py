@@ -30,6 +30,8 @@ class Character:
                 self.image = pygame.image.load("images/enemy_stress.png")
             elif self.prosecutor == "object":
                 self.image = pygame.image.load("images/enemy_objection.png")
+            elif self.prosecutor == "happy":
+                self.image = pygame.image.load("images/enemy_talk.png")
         elif self.turn == "judge":
             self.image = pygame.image.load("images/judge.png")
         elif self.turn == "witness":
@@ -66,7 +68,8 @@ class Character:
                 self.image = pygame.image.load("images/witness2_upset.png")
         self.rect = self.image.get_rect()
         if self.turn == "judge":
-            self.rect.midtop = self.screen_rect.midtop
+            self.rect.center = self.screen_rect.center
+            self.rect.top = self.screen_rect.top - 10
         elif self.turn == "witness" or self.turn == "witness 2":
             self.rect.right = self.screen_rect.right - 90
             self.rect.bottom = self.screen_rect.bottom
