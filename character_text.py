@@ -15,8 +15,9 @@ class CharacterText:
         self.defense_lines = ["Yes your honor.", "(Why did he come dressed like that?)","I don't think you get it Edgeworth."]
 
         self.prosecutor_lines = ["Of course, your honor.", "Understand. The victim is a young", "woman who won a large sum of money.",
-                                 "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-"]
-        self.victim_lines = ["Thats a lie! I'd never do that!"]
+                                 "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-", "Now I call up the detective,", "Dick Gumshoe."]
+        self.defendant_lines = ["Thats a lie! I'd never do that!"]
+        self.detective_lines = ["The defendant was caught carrying", "cyanide in there pocket,", "Showing how they are indeed guilty."]
         self.font = pygame.font.SysFont("lucidaconsole", 25)
         self.text_1 = "PLACEHOLDER :)"
         self.text_1_rect = "OTHER PLACEHOLDER :)"
@@ -48,9 +49,9 @@ class CharacterText:
                 self.text_2_rect.right = self.screen_rect.right - 330
             self.text_2_rect.bottom = self.screen_rect.bottom - 90
             self.text_1_rect.bottom = self.screen_rect.bottom - 120
-        elif turn == "victim":
+        elif turn == "defendant":
             if moves == "Explain_interference":
-                self.text_1 = self.font.render(self.victim_lines[0], True, self.text_color)
+                self.text_1 = self.font.render(self.defendant_lines[0], True, self.text_color)
                 self.text_2 = self.font.render("", True, self.text_color)
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
@@ -94,8 +95,31 @@ class CharacterText:
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.left = self.screen_rect.left + 310
                 self.text_2_rect.left = self.screen_rect.left + 310
+            elif moves == "Explain_3":
+                self.text_1 = self.font.render(self.prosecutor_lines[5], True, self.text_color)
+                self.text_2 = self.font.render(self.prosecutor_lines[6], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.left = self.screen_rect.left + 310
+                self.text_2_rect.left = self.screen_rect.left + 310
             self.text_1_rect.bottom = self.screen_rect.bottom - 110
             self.text_2_rect.bottom = self.screen_rect.bottom - 85
+        elif turn == "detective":
+            if moves == "Explain_4":
+                self.text_1 = self.font.render(self.detective_lines[0], True, self.text_color)
+                self.text_2 = self.font.render(self.detective_lines[1], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 120
+                self.text_2_rect.right = self.screen_rect.right - 250
+            elif moves == "Explain_5":
+                self.text_1 = self.font.render(self.detective_lines[2], True, self.text_color)
+                self.text_2 = self.font.render("", True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 110
+            self.text_1_rect.bottom = self.screen_rect.bottom - 110
+            self.text_2_rect.bottom = self.screen_rect.bottom - 80
     def draw_speech(self):
         self.screen.blit(self.text_1, self.text_1_rect)
         self.screen.blit(self.text_2, self.text_2_rect)

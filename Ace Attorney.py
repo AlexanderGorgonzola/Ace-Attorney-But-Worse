@@ -25,6 +25,7 @@ class AceAttorney:
         self.character_text = CharacterText(self)
         pygame.display.set_caption("Ace Attorney")
         self.info_up = False
+        self.objection = False
         self.page_flip = pygame.mixer.Sound("sounds/page_flip_sound.mp3")
 
     def _update_screen(self):
@@ -36,7 +37,7 @@ class AceAttorney:
             self.settings.update_bg()
             if (self.settings.current_bg == "judge") or (self.settings.current_bg == "prosecutor") or (self.settings.current_bg == "defense"): #decide locations
                 self.screen.blit(self.settings.bg, (-120, 0))
-            elif (self.settings.current_bg == "witness") or (self.settings.current_bg == "detective") or (self.settings.current_bg == "victim"):
+            elif (self.settings.current_bg == "witness") or (self.settings.current_bg == "detective") or (self.settings.current_bg == "defendant"):
                 self.screen.blit(self.settings.bg, (0, 0))
             self.character.change_image()
             self.character.blitme()
@@ -91,8 +92,8 @@ class AceAttorney:
             self.character.turn = "prosecutor"
             self.settings.turn_des = "Explain_2"
         elif self.settings.turn_des == "Explain_2":
-            self.character.turn = "victim"
-            self.character.victim = "shocked"
+            self.character.turn = "defendant"
+            self.character.defendant = "shocked"
             self.settings.turn_des = "Explain_interference"
         elif self.settings.turn_des == "Explain_interference":
             self.character.turn = "judge"
@@ -101,6 +102,18 @@ class AceAttorney:
             self.character.turn = "defense"
             self.character.defense = "stressed"
             self.settings.turn_des = "Explain_interference_3"
+        elif self.settings.turn_des == "Explain_interference_3":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "happy"
+            self.settings.turn_des = "Explain_3"
+        elif self.settings.turn_des == "Explain_3" and not self.objection:
+            self.character.turn = "detective"
+            self.character.detective = "normal"
+            self.settings.turn_des = "Explain_4"
+        elif self.settings.turn_des == "Explain_4" and not self.objection:
+            self.character.turn = "detective"
+            self.character.detective = "normal"
+            self.settings.turn_des = "Explain_5"
 
     def _check_play_button(self, mouse_pos):
         intro_button_clicked = self.buttons.button_rect.collidepoint(mouse_pos)
@@ -111,6 +124,7 @@ class AceAttorney:
 
     def _check_normal_buttons(self, mouse_pos):
         info_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
+        objection_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
         if info_button_clicked and not self.info_up:
             self.effects.prep_autopsy()
             self.info_up = True
@@ -119,6 +133,8 @@ class AceAttorney:
             self.effects.hide_autopsy()
             self.info_up = False
             self.page_flip.play()
+        #elif objection_button_clicked:
+            #if self.settings.turn_des == "detective_2"
     def run_game(self):
         while True:
             self._check_events()

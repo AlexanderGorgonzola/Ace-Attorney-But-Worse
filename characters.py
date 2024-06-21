@@ -9,7 +9,7 @@ class Character:
         self.prosecutor = "normal"
         self.witness = "angry"
         self.detective = "confused"
-        self.victim = "normal"
+        self.defendant = "normal"
         self.witness_2 = "normal"
     def change_image(self):
         if self.turn == "defense":
@@ -48,14 +48,14 @@ class Character:
                 self.image = pygame.image.load("images/detective_talk.png")
             elif self.detective == "confused":
                 self.image = pygame.image.load("images/detective_confused.png")
-        elif self.turn == "victim":
-            if self.victim == "normal":
+        elif self.turn == "defendant":
+            if self.defendant == "normal":
                 self.image = pygame.image.load("images/victim_talk.png")
-            elif self.victim == "shocked":
+            elif self.defendant == "shocked":
                 self.image = pygame.image.load("images/victim_shocked.png")
-            elif self.victim == "angry":
+            elif self.defendant == "angry":
                 self.image = pygame.image.load("images/victim_angry.png")
-            elif self.victim == "sad":
+            elif self.defendant == "sad":
                 self.image = pygame.image.load("images/victim_sad.png")
         elif self.turn == "witness 2":
             if self.witness_2 == "normal":
