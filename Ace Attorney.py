@@ -1,3 +1,4 @@
+import time
 import pygame
 import sys
 from pygame import mixer
@@ -13,10 +14,13 @@ class AceAttorney:
     def __init__(self):
         pygame.init()
         mixer.init()
+        self.info_up = False
+        self.objection = False
+        self.objection_cooldown = 0
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.character = Character(self)
-        self.tag = CharacterTag(self, "Defense")
+        self.tag = CharacterTag(self, "Defense", self.objection_cooldown)
         self.buttons = Buttons(self)
         self.stats = GameStats(self)
         self.music = Music(self, self.settings.health)
@@ -24,9 +28,8 @@ class AceAttorney:
         self.effects = Effects(self)
         self.character_text = CharacterText(self)
         pygame.display.set_caption("Ace Attorney")
-        self.info_up = False
-        self.objection = False
         self.page_flip = pygame.mixer.Sound("sounds/page_flip_sound.mp3")
+        self.objection_sound = pygame.mixer.Sound("sounds/player_objection_sound.mp3")
 
     def _update_screen(self):
         if self.stats.game_active:
@@ -41,9 +44,10 @@ class AceAttorney:
                 self.screen.blit(self.settings.bg, (0, 0))
             self.character.change_image()
             self.character.blitme()
-            self.tag = CharacterTag(self, self.character.turn)
+            self.tag = CharacterTag(self, self.character.turn, self.objection_cooldown)
             self.tag._prep_msg(self.character.turn)
             self.tag._prep_textbox(self.character.turn)
+            self.tag.prep_cooldown(self.objection_cooldown)
             self.tag.draw_text()
             self.buttons.prep_objection()
             self.buttons.prep_info()
@@ -52,6 +56,7 @@ class AceAttorney:
             self.buttons.show_buttons()
             self.character_text.prep_speech(self.character.turn, self.settings.turn_des)
             self.character_text.draw_speech()
+            self.tag.prep_cooldown(self.objection_cooldown)
             if self.info_up == True:
                 self.effects.show_autopsy()
         else:
@@ -71,6 +76,7 @@ class AceAttorney:
                 pygame.display.flip()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE: #basically gameplay?
+                    self.objection_cooldown -= 1
                     self.check_space()
     def check_space(self):
         if self.settings.turn_des == "Start":
@@ -124,7 +130,7 @@ class AceAttorney:
 
     def _check_normal_buttons(self, mouse_pos):
         info_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
-        objection_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
+        objection_button_clicked = self.buttons.objection_rect.collidepoint(mouse_pos)
         if info_button_clicked and not self.info_up:
             self.effects.prep_autopsy()
             self.info_up = True
@@ -133,8 +139,24 @@ class AceAttorney:
             self.effects.hide_autopsy()
             self.info_up = False
             self.page_flip.play()
-        #elif objection_button_clicked:
-            #if self.settings.turn_des == "detective_2"
+        elif objection_button_clicked and self.objection_cooldown <= 0:
+            if self.settings.turn_des == "Explain_4" or self.settings.turn_des == "Explain_5":
+                self.effects.prep_objection()
+                self.objection = True
+                self.effects.show_objection(self.objection)
+                self.objection_sound.play()
+                self.objection = False
+                self.effects.show_objection(self.objection)
+                self.objection_cooldown = 3
+            else: #penalty sucker
+                self.effects.prep_objection()
+                self.objection = True
+                self.effects.show_objection(self.objection)
+                self.objection_sound.play()
+                self.objection = False
+                self.effects.show_objection(self.objection)
+                self.settings.health -= 20
+                self.objection_cooldown = 3
     def run_game(self):
         while True:
             self._check_events()
