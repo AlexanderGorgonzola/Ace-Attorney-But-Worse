@@ -119,7 +119,12 @@ class AceAttorney:
         elif self.settings.turn_des == "Explain_4" and not self.objection:
             self.character.turn = "detective"
             self.character.detective = "normal"
-            self.settings.turn_des = "Explain_5"
+            self.settings.turn_des = "Explain_5" #come back to this cheese man
+        elif self.settings.turn_des == "Object_detective":
+            self.character.turn = "defense"
+            self.character.defense = "object"
+            self.settings.turn_des = "Object_detective_2"
+        print(self.settings.turn_des)
 
     def _check_play_button(self, mouse_pos):
         intro_button_clicked = self.buttons.button_rect.collidepoint(mouse_pos)
@@ -141,6 +146,9 @@ class AceAttorney:
             self.page_flip.play()
         elif objection_button_clicked and self.objection_cooldown <= 0:
             if self.settings.turn_des == "Explain_4" or self.settings.turn_des == "Explain_5":
+                self.settings.turn_des = "Object_detective"
+                self.character.turn = "defense"
+                self.character.defense = "object"
                 self.effects.prep_objection()
                 self.objection = True
                 self.effects.show_objection(self.objection)
@@ -148,6 +156,7 @@ class AceAttorney:
                 self.objection = False
                 self.effects.show_objection(self.objection)
                 self.objection_cooldown = 3
+                self.settings.health += 10
             else: #penalty sucker
                 self.effects.prep_objection()
                 self.objection = True

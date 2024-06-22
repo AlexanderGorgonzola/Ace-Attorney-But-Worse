@@ -12,12 +12,13 @@ class CharacterText:
                             "What do you mean by that?","Interesting...", "Who would have known?", "I pass the verdict: Guilty",
                             "I pass the verdict: Not Guilty"]
         
-        self.defense_lines = ["Yes your honor.", "(Why did he come dressed like that?)","I don't think you get it Edgeworth."]
+        self.defense_lines = ["Yes your honor.", "(Why did he come dressed like that?)","I don't think you get it Edgeworth.",
+                              "Hold on a minute!", "This doesn't make any sense!", "The autopsy states she died", "10 minutes later!"]
 
         self.prosecutor_lines = ["Of course, your honor.", "Understand. The victim is a young", "woman who won a large sum of money.",
                                  "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-", "Now I call up the detective,", "Dick Gumshoe."]
         self.defendant_lines = ["Thats a lie! I'd never do that!"]
-        self.detective_lines = ["The defendant was caught carrying", "cyanide in there pocket,", "Showing how they are indeed guilty."]
+        self.detective_lines = ["The defendant was caught carrying", "cyanide in there pocket,", "Showing how he is indeed guilty."]
         self.font = pygame.font.SysFont("lucidaconsole", 25)
         self.text_1 = "PLACEHOLDER :)"
         self.text_1_rect = "OTHER PLACEHOLDER :)"
@@ -72,6 +73,13 @@ class CharacterText:
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 80
+            elif moves == "Object_detective":
+                self.text_1 = self.font.render(self.defense_lines[3], True, self.text_color)
+                self.text_2 = self.font.render(self.defense_lines[4], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 360
+                self.text_2_rect.right = self.screen_rect.right - 195
             self.text_1_rect.bottom = self.screen_rect.bottom - 120
             self.text_2_rect.bottom = self.screen_rect.bottom - 90
         elif turn == "prosecutor":
@@ -118,6 +126,7 @@ class CharacterText:
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 110
+                self.text_2_rect.right = self.screen_rect.right - 110
             self.text_1_rect.bottom = self.screen_rect.bottom - 110
             self.text_2_rect.bottom = self.screen_rect.bottom - 80
     def draw_speech(self):
