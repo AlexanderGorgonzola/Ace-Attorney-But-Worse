@@ -119,11 +119,36 @@ class AceAttorney:
         elif self.settings.turn_des == "Explain_4" and not self.objection:
             self.character.turn = "detective"
             self.character.detective = "normal"
-            self.settings.turn_des = "Explain_5" #come back to this cheese man
+            self.settings.turn_des = "Explain_5"
         elif self.settings.turn_des == "Object_detective":
             self.character.turn = "defense"
             self.character.defense = "object"
             self.settings.turn_des = "Object_detective_2"
+        elif self.settings.turn_des == "Object_detective_2":
+            self.character.turn = "defense"
+            self.character.defense = "think"
+            self.settings.turn_des = "Object_detective_3"
+        elif self.settings.turn_des == "Object_detective_3":
+            self.character.turn = "detective"
+            self.character.detective = "confused"
+            self.settings.turn_des = "Object_detective_4"
+        elif self.settings.turn_des == "Object_detective_4":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "happy"
+            self.settings.turn_des = "Object_detective_5"
+        elif self.settings.turn_des == "Explain_5":
+            self.settings.health -= 20
+            self.character.turn = "detective"
+            self.character.detective = "normal"
+            self.settings.turn_des = "Explain_6"
+        elif self.settings.turn_des == "Object_detective_5":
+            self.character.turn = "detective"
+            self.character.detective = "normal"
+            self.settings.turn_des = "Explain_6"
+        elif self.settings.turn_des == "Explain_6":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "think"
+            self.settings.turn_des = "Witness_one"
         print(self.settings.turn_des)
 
     def _check_play_button(self, mouse_pos):
