@@ -43,11 +43,14 @@ class Buttons:
         self.give_image_rect.bottom = self.screen_rect.bottom - 35
     def prep_health(self, hp):
         self.font = pygame.font.SysFont("Comic Sans MS", 35)
+        self.bad_health_rect = pygame.Rect(0,0, 200, 50)
         self.health_rect = pygame.Rect(0, 0, (hp * 2), 50)
         self.health_msg = self.font.render("Health:", True, self.text_color, None)
         self.health_msg_rect = self.health_msg.get_rect()
         self.health_msg_rect.top = self.screen_rect.top + 40
         self.health_msg_rect.left = self.screen_rect.left
+        self.bad_health_rect.top = self.screen_rect.top + 100
+        self.bad_health_rect.left = self.screen_rect.left
         self.health_rect.top = self.screen_rect.top + 100
         self.health_rect.left = self.screen_rect.left
 
@@ -55,6 +58,7 @@ class Buttons:
         self.screen.blit(self.info_image, self.info_rect)
         self.screen.blit(self.objection_image, self.objection_rect)
         self.screen.blit(self.give_image, self.give_image_rect)
+        self.screen.fill((255,0,0), self.bad_health_rect)
         self.screen.fill((0, 255, 0), self.health_rect)
         self.screen.blit(self.health_msg, self.health_msg_rect)
     def show_intro(self):
