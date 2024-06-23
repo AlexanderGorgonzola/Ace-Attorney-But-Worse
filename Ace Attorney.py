@@ -1,3 +1,4 @@
+import random
 import time
 import pygame
 import sys
@@ -30,6 +31,7 @@ class AceAttorney:
         pygame.display.set_caption("Ace Attorney")
         self.page_flip = pygame.mixer.Sound("sounds/page_flip_sound.mp3")
         self.objection_sound = pygame.mixer.Sound("sounds/player_objection_sound.mp3")
+        self.hold_it_sound = pygame.mixer.Sound("sounds/player_holdit_sound.mp3")
 
     def _update_screen(self):
         if self.stats.game_active:
@@ -149,6 +151,22 @@ class AceAttorney:
             self.character.turn = "prosecutor"
             self.character.prosecutor = "think"
             self.settings.turn_des = "Witness_one"
+        elif self.settings.turn_des == "Witness_one":
+            self.character.turn = "witness"
+            self.character.witness = "normal"
+            self.settings.turn_des = "Witness_one_2"
+        elif self.settings.turn_des == "Witness_one_2":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "normal"
+            self.settings.turn_des = "Witness_one_3"
+        elif self.settings.turn_des == "Witness_one_3":
+            self.character.turn = "witness"
+            self.character.witness = "normal"
+            self.settings.turn_des = "Witness_one_4"
+        elif self.settings.turn_des == "Witness_one_4":
+            self.character.turn = "witness"
+            self.character.witness = "upset"
+            self.settings.turn_des = "Witness_one_5"
         print(self.settings.turn_des)
 
     def _check_play_button(self, mouse_pos):
@@ -177,7 +195,11 @@ class AceAttorney:
                 self.effects.prep_objection()
                 self.objection = True
                 self.effects.show_objection(self.objection)
-                self.objection_sound.play()
+                r = random.randint(1,2)
+                if r == 1:
+                    self.objection_sound.play()
+                else:
+                    self.hold_it_sound.play()
                 self.objection = False
                 self.effects.show_objection(self.objection)
                 self.objection_cooldown = 3
@@ -186,7 +208,11 @@ class AceAttorney:
                 self.effects.prep_objection()
                 self.objection = True
                 self.effects.show_objection(self.objection)
-                self.objection_sound.play()
+                r = random.randint(1,2)
+                if r == 1:
+                    self.objection_sound.play()
+                else:
+                    self.hold_it_sound.play()
                 self.objection = False
                 self.effects.show_objection(self.objection)
                 self.settings.health -= 20
