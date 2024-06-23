@@ -9,22 +9,22 @@ class CharacterText:
         self.screen_rect = self.screen.get_rect()
         self.character = Character(self)
         self.judge_lines = ["Court is now in Session.", "Is everyone ready?", "Edgeworth, please introduce the jury.", "Order!", "Anyways, Continue.",
-                            "What do you mean by that?","Interesting...", "Who would have known?", "I pass the verdict: Guilty",
+                            "What do you mean by that?","Interesting...", "Who would have known?", "I pass the verdict:", "GUILTY",
                             "I pass the verdict: Not Guilty"]
         
         self.defense_lines = ["Yes your honor.", "(Why did he come dressed like that?)","I don't think you get it Edgeworth.",
                               "Hold on a minute!", "This doesn't make any sense!", "The autopsy states she died", "10 minutes later!",
-                              "Cyanide kills really quick,", "so it doesn't mean anything!"]
+                              "Cyanide kills really quick,", "so it doesn't mean anything!", "Hold it! I haven't gotten to", "cross examine the witness yet!"]
 
         self.prosecutor_lines = ["Of course, your honor.", "Understand. The victim is a young", "woman who won a large sum of money.",
                                  "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-", "Now I call up the detective,", "Dick Gumshoe.",
                                  "Well, that doesn't mean anything,", "so please continue detective.", "Anyways, I would like to call on", "my first witness.",
-                                 "Please tell the court your story Ben."]
+                                 "Please tell the court your story Ben.", "And thats all the proof we need.", "Please end the trail now."]
         self.defendant_lines = ["Thats a lie! I'd never do that!"]
         self.detective_lines = ["The defendant was caught carrying", "cyanide in there pocket,", "Showing how he is indeed guilty.", "Well uhh...",
                                 "Also, the defendant was in the same", "location during the victims death."]
         self.witness_one_lines = ["Hello your honor. my name is", "ben, and his is trilo.", "We where practicing rehearsals for", "our new show.",
-                                  "A little later, I wasn't able", "to find Moe."]
+                                  "A little later, I wasn't able", "to find Moe.", "I went to search the rehearsal area,", "but ended up finding a dead body."]
         self.font = pygame.font.SysFont("lucidaconsole", 25)
         self.text_1 = "PLACEHOLDER :)"
         self.text_1_rect = "OTHER PLACEHOLDER :)"
@@ -54,6 +54,13 @@ class CharacterText:
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 510
                 self.text_2_rect.right = self.screen_rect.right - 330
+            elif moves == "Witness_one_8":
+                self.text_1 = self.font.render(self.judge_lines[8], True, self.text_color)
+                self.text_2 = self.font.render(self.judge_lines[9], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 310
+                self.text_2_rect.right = self.screen_rect.right - 510
             self.text_2_rect.bottom = self.screen_rect.bottom - 90
             self.text_1_rect.bottom = self.screen_rect.bottom - 120
         elif turn == "defendant":
@@ -100,6 +107,13 @@ class CharacterText:
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 200
                 self.text_2_rect.right = self.screen_rect.right - 170
+            elif moves == "Cross_witness_one":
+                self.text_1 = self.font.render(self.defense_lines[9], True, self.text_color)
+                self.text_2 = self.font.render(self.defense_lines[10], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 190
+                self.text_2_rect.right = self.screen_rect.right - 160
             self.text_1_rect.bottom = self.screen_rect.bottom - 120
             self.text_2_rect.bottom = self.screen_rect.bottom - 90
         elif turn == "prosecutor": #
@@ -147,6 +161,13 @@ class CharacterText:
             elif moves == "Witness_one_3": 
                 self.text_1 = self.font.render(self.prosecutor_lines[11], True, self.text_color)
                 self.text_2 = self.font.render("", True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.left = self.screen_rect.left + 315
+                self.text_2_rect.left = self.screen_rect.left + 310
+            elif moves == "Witness_one_7": 
+                self.text_1 = self.font.render(self.prosecutor_lines[12], True, self.text_color)
+                self.text_2 = self.font.render(self.prosecutor_lines[13], True, self.text_color)
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.left = self.screen_rect.left + 315
@@ -204,6 +225,13 @@ class CharacterText:
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 170
                 self.text_2_rect.right = self.screen_rect.right - 410
+            if moves == "Witness_one_6":
+                self.text_1 = self.font.render(self.witness_one_lines[6], True, self.text_color)
+                self.text_2 = self.font.render(self.witness_one_lines[7], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 70
+                self.text_2_rect.right = self.screen_rect.right - 110
             self.text_1_rect.bottom = self.screen_rect.bottom - 110
             self.text_2_rect.bottom = self.screen_rect.bottom - 80
     def draw_speech(self):
