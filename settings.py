@@ -7,7 +7,7 @@ class Settings:
         self.bg = pygame.image.load("images/judge_bg.png")
         self.health = 100
         self.turn_des = "Start"
-    def update_bg(self):
+    def update_bg(self, Lost):
         if self.current_bg == "judge":
             self.bg = pygame.image.load("images/judge_bg.png")
         elif self.current_bg == "witness":
@@ -20,3 +20,5 @@ class Settings:
             self.bg = pygame.image.load("images/detective_bg.png")
         elif self.current_bg == "defendant":
             self.bg = pygame.image.load("images/victim_bg.png")
+        if Lost:
+            self.bg = pygame.image.load("images/judge_bg.png")

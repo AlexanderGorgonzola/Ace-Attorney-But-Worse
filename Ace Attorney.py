@@ -26,7 +26,7 @@ class AceAttorney:
         self.stats = GameStats(self)
         self.music = Music(self, self.settings.health)
         self.total_time = pygame.time.get_ticks()
-        self.effects = Effects(self)
+        self.effects = Effects(self, self.stats.ranking)
         self.character_text = CharacterText(self)
         pygame.display.set_caption("Ace Attorney")
         self.page_flip = pygame.mixer.Sound("sounds/page_flip_sound.mp3")
@@ -39,7 +39,7 @@ class AceAttorney:
                 self.settings.current_bg = "witness"
             else:
                 self.settings.current_bg = self.character.turn
-            self.settings.update_bg()
+            self.settings.update_bg(self.stats.game_over)
             if (self.settings.current_bg == "judge") or (self.settings.current_bg == "prosecutor") or (self.settings.current_bg == "defense"): #decide locations
                 self.screen.blit(self.settings.bg, (-120, 0))
             elif (self.settings.current_bg == "witness") or (self.settings.current_bg == "detective") or (self.settings.current_bg == "defendant"):
@@ -61,11 +61,17 @@ class AceAttorney:
             self.tag.prep_cooldown(self.objection_cooldown)
             if self.info_up == True:
                 self.effects.show_autopsy()
+            if self.settings.health <= 0:
+                self.stats.game_over = True
         elif not self.stats.game_active and not self.stats.game_over:
             self.buttons.prep_startButton()
             self.buttons.prep_title()
             self.buttons.show_intro()
-
+        elif self.stats.game_active and self.stats.game_over:
+            self.settings.update_bg(self.stats.game_over)
+            self.screen.blit(self.settings.bg, (-120, 0))
+            self.effects.prep_final_stats(self.stats.ranking)
+            self.effects.show_final_stats()
         pygame.display.flip()
     def _check_events(self):
         for event in pygame.event.get():
@@ -178,6 +184,9 @@ class AceAttorney:
         elif self.settings.turn_des == "Witness_one_7" and not self.objection:
             self.character.turn = "judge"
             self.settings.turn_des = "Witness_one_8"
+        elif self.settings.turn_des == "Witness_one_8":
+            self.stats.ranking = 0
+            self.stats.game_over = True
         print(self.settings.turn_des)
 
     def _check_play_button(self, mouse_pos):
@@ -201,6 +210,7 @@ class AceAttorney:
     def _check_normal_buttons(self, mouse_pos):
         info_button_clicked = self.buttons.info_rect.collidepoint(mouse_pos)
         objection_button_clicked = self.buttons.objection_rect.collidepoint(mouse_pos)
+        give_in_button_clicked = self.buttons.give_image_rect.collidepoint(mouse_pos)
         if info_button_clicked and not self.info_up:
             self.effects.prep_autopsy()
             self.info_up = True
@@ -209,6 +219,9 @@ class AceAttorney:
             self.effects.hide_autopsy()
             self.info_up = False
             self.page_flip.play()
+        elif give_in_button_clicked:
+            self.stats.ranking = 0
+            self.stats.game_over = True
         elif objection_button_clicked and self.objection_cooldown <= 0:
             if self.settings.turn_des == "Explain_4" or self.settings.turn_des == "Explain_5":
                 self.settings.turn_des = "Object_detective"
@@ -216,14 +229,17 @@ class AceAttorney:
                 self.character.defense = "object"
                 self.objection_effect()
                 self.settings.health += 10
+                self.stats.ranking += 1
             elif self.settings.turn_des == "Witness_one_7" or self.settings.turn_des == "Witness_one_8":
                 self.settings.turn_des = "Cross_witness_one"
                 self.character.turn = "defense"
                 self.character.defense = "object"
                 self.objection_effect()
+                self.stats.ranking += 1
             else: #penalty sucker
                 self.objection_effect()
                 self.settings.health -= 20
+                self.stats.ranking -= 1
     def run_game(self):
         while True:
             self._check_events()
