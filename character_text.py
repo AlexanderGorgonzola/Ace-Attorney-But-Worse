@@ -15,7 +15,7 @@ class CharacterText:
         self.defense_lines = ["Yes your honor.", "(Why did he come dressed like that?)","I don't think you get it Edgeworth.",
                               "Hold on a minute!", "This doesn't make any sense!", "The autopsy states she died", "10 minutes later!",
                               "Cyanide kills really quick,", "so it doesn't mean anything!", "Hold it! I haven't gotten to", "cross examine the witness yet!",
-                              "I wasn't able to win..."]
+                              "I wasn't able to win...", "Tell me witness, were there any", "rooms near the victim?"]
 
         self.prosecutor_lines = ["Of course, your honor.", "Understand. The victim is a young", "woman who won a large sum of money.",
                                  "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-", "Now I call up the detective,", "Dick Gumshoe.",
@@ -25,7 +25,8 @@ class CharacterText:
         self.detective_lines = ["The defendant was caught carrying", "cyanide in there pocket,", "Showing how he is indeed guilty.", "Well uhh...",
                                 "Also, the defendant was in the same", "location during the victims death."]
         self.witness_one_lines = ["Hello your honor. my name is", "ben, and his is trilo.", "We where practicing rehearsals for", "our new show.",
-                                  "A little later, I wasn't able", "to find Moe.", "I went to search the rehearsal area,", "but ended up finding a dead body."]
+                                  "A little later, I wasn't able", "to find Moe.", "I went to search the rehearsal area,", "but ended up finding a dead body.",
+                                  "No, there wasn't."]
         self.font = pygame.font.SysFont("lucidaconsole", 25)
         self.text_1 = "PLACEHOLDER :)"
         self.text_1_rect = "OTHER PLACEHOLDER :)"
@@ -64,7 +65,7 @@ class CharacterText:
                 self.text_2_rect.right = self.screen_rect.right - 510
             self.text_2_rect.bottom = self.screen_rect.bottom - 90
             self.text_1_rect.bottom = self.screen_rect.bottom - 120
-        elif turn == "defendant":
+        elif turn == "defendant": #
             if moves == "Explain_interference":
                 self.text_1 = self.font.render(self.defendant_lines[0], True, self.text_color)
                 self.text_2 = self.font.render("", True, self.text_color)
@@ -115,6 +116,13 @@ class CharacterText:
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 190
                 self.text_2_rect.right = self.screen_rect.right - 160
+            elif moves == "Cross_witness_one_2":
+                self.text_1 = self.font.render(self.defense_lines[12], True, self.text_color)
+                self.text_2 = self.font.render(self.defense_lines[13], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 150
+                self.text_2_rect.right = self.screen_rect.right - 290
             elif moves == "Lost":
                 self.text_1 = self.font.render(self.defense_lines[11], True, self.text_color)
                 self.text_2 = self.font.render("", True, self.text_color)
@@ -239,6 +247,13 @@ class CharacterText:
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 70
+                self.text_2_rect.right = self.screen_rect.right - 110
+            if moves == "Cross_witness_one_3":
+                self.text_1 = self.font.render(self.witness_one_lines[8], True, self.text_color)
+                self.text_2 = self.font.render("", True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 350
                 self.text_2_rect.right = self.screen_rect.right - 110
             self.text_1_rect.bottom = self.screen_rect.bottom - 110
             self.text_2_rect.bottom = self.screen_rect.bottom - 80

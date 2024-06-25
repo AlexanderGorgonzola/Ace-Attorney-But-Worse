@@ -187,6 +187,14 @@ class AceAttorney:
         elif self.settings.turn_des == "Witness_one_8":
             self.stats.ranking = 0
             self.stats.game_over = True
+        elif self.settings.turn_des == "Cross_witness_one":
+            self.character.turn = "defense"
+            self.character.defense = "normal"
+            self.settings.turn_des = "Cross_witness_one_2"
+        elif self.settings.turn_des == "Cross_witness_one_2":
+            self.character.turn = "witness"
+            self.character.witness = "nervous"
+            self.settings.turn_des = "Cross_witness_one_3"
         print(self.settings.turn_des)
 
     def _check_play_button(self, mouse_pos):
