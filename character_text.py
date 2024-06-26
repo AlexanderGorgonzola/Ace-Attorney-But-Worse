@@ -15,7 +15,8 @@ class CharacterText:
         self.defense_lines = ["Yes your honor.", "(Why did he come dressed like that?)","I don't think you get it Edgeworth.",
                               "Hold on a minute!", "This doesn't make any sense!", "The autopsy states she died", "10 minutes later!",
                               "Cyanide kills really quick,", "so it doesn't mean anything!", "Hold it! I haven't gotten to", "cross examine the witness yet!",
-                              "I wasn't able to win...", "Tell me witness, were there any", "rooms near the victim?"]
+                              "I wasn't able to win...", "Tell me witness, were there any", "rooms near the victim?", "Your lying to us! He couldn't",
+                              " have hid! Moe was close to the body!"]
 
         self.prosecutor_lines = ["Of course, your honor.", "Understand. The victim is a young", "woman who won a large sum of money.",
                                  "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-", "Now I call up the detective,", "Dick Gumshoe.",
@@ -123,6 +124,13 @@ class CharacterText:
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.right = self.screen_rect.right - 150
                 self.text_2_rect.right = self.screen_rect.right - 290
+            elif moves == "Cross_witness_one_4":
+                self.text_1 = self.font.render(self.defense_lines[14], True, self.text_color)
+                self.text_2 = self.font.render(self.defense_lines[15], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.right = self.screen_rect.right - 60
+                self.text_2_rect.right = self.screen_rect.right - 250
             elif moves == "Lost":
                 self.text_1 = self.font.render(self.defense_lines[11], True, self.text_color)
                 self.text_2 = self.font.render("", True, self.text_color)
