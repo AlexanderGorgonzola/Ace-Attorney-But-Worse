@@ -129,8 +129,8 @@ class CharacterText:
                 self.text_2 = self.font.render(self.defense_lines[15], True, self.text_color)
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
-                self.text_1_rect.right = self.screen_rect.right - 60
-                self.text_2_rect.right = self.screen_rect.right - 250
+                self.text_1_rect.right = self.screen_rect.right - 180
+                self.text_2_rect.right = self.screen_rect.right - 80
             elif moves == "Lost":
                 self.text_1 = self.font.render(self.defense_lines[11], True, self.text_color)
                 self.text_2 = self.font.render("", True, self.text_color)
