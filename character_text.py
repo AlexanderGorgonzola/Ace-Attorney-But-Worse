@@ -1,6 +1,5 @@
 import pygame.font
 import pygame
-import textwrap
 from characters import Character
 class CharacterText:
     def __init__(self, at_game):
@@ -21,7 +20,7 @@ class CharacterText:
         self.prosecutor_lines = ["Of course, your honor.", "Understand. The victim is a young", "woman who won a large sum of money.",
                                  "Her husband, a clown, poisoned", "her lunch resulting in a quick dea-", "Now I call up the detective,", "Dick Gumshoe.",
                                  "Well, that doesn't mean anything,", "so please continue detective.", "Anyways, I would like to call on", "my first witness.",
-                                 "Please tell the court your story Ben.", "And thats all the proof we need.", "Please end the trail now."]
+                                 "Please tell the court your story Ben.", "And thats all the proof we need.", "Please end the trail now.", "HOLD IT!", "He could have still done it!"]
         self.defendant_lines = ["Thats a lie! I'd never do that!"]
         self.detective_lines = ["The defendant was caught carrying", "cyanide in there pocket,", "Showing how he is indeed guilty.", "Well uhh...",
                                 "Also, the defendant was in the same", "location during the victims death."]
@@ -192,6 +191,13 @@ class CharacterText:
             elif moves == "Witness_one_7": 
                 self.text_1 = self.font.render(self.prosecutor_lines[12], True, self.text_color)
                 self.text_2 = self.font.render(self.prosecutor_lines[13], True, self.text_color)
+                self.text_1_rect = self.text_1.get_rect()
+                self.text_2_rect = self.text_2.get_rect()
+                self.text_1_rect.left = self.screen_rect.left + 315
+                self.text_2_rect.left = self.screen_rect.left + 310
+            elif moves == "Cross_witness_one_5": 
+                self.text_1 = self.font.render(self.prosecutor_lines[14], True, self.text_color)
+                self.text_2 = self.font.render(self.prosecutor_lines[15], True, self.text_color)
                 self.text_1_rect = self.text_1.get_rect()
                 self.text_2_rect = self.text_2.get_rect()
                 self.text_1_rect.left = self.screen_rect.left + 315

@@ -199,6 +199,10 @@ class AceAttorney:
             self.character.turn = "defense"
             self.character.defense = "object"
             self.settings.turn_des = "Cross_witness_one_4"
+        elif self.settings.turn_des == "Cross_witness_one_4":
+            self.character.turn = "prosecutor"
+            self.character.prosecutor = "object"
+            self.settings.turn_des = "Cross_witness_one_5"
         print(self.settings.turn_des)
 
     def _check_play_button(self, mouse_pos):
